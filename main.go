@@ -13,10 +13,26 @@ import (
 )
 
 /**
+ * Get day of week string slice
+ */
+func dayOfWeek(language string) []string {
+	var s []string
+
+	switch language {
+	case "ja":
+		s = []string{"日", "月", "火", "水", "木", "金", "土"}
+	default:
+		s = []string{"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"}
+	}
+
+	return s
+}
+
+/**
  * Create note from template as String.
  */
-func create(start string) string {
-	startDate, err := carbon.Parse(carbon.DateFormat, start, time.Now().Location().String())
+func create(start string, location string, language string) string {
+	startDate, err := carbon.Parse(carbon.DateFormat, start, location)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,7 +42,7 @@ func create(start string) string {
 		log.Fatal(err)
 	}
 
-	dayOfWeek := []string{"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"}
+	dayOfWeek := dayOfWeek(language)
 
 	var days []string
 
@@ -58,12 +74,13 @@ func output(content string, location string) {
 }
 
 func main() {
-	var start, location, result string
+	var start, location, language, result string
 
 	flag.StringVar(&start, "start", carbon.Now().StartOfWeek().DateString(), "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
-	flag.StringVar(&location, "location", "stdout", "Specify the output location. `stdout` or `clipboard`.")
+	flag.StringVar(&location, "location", "stdout", "Specify the output location. \"stdout\" or \"clipboard\".")
+	flag.StringVar(&language, "language", "en", "Specify the display language. \"en\" or \"ja\".")
 	flag.Parse()
 
-	result = create(start)
+	result = create(start, time.Now().Location().String(), language)
 	output(result, location)
 }
