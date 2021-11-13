@@ -11,13 +11,10 @@ import (
 	"github.com/uniplaces/carbon"
 )
 
-func main() {
-	var start, output string
-
-	flag.StringVar(&start, "start", carbon.Now().StartOfWeek().DateString(), "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
-	flag.StringVar(&output, "output", "stdout", "Specify the output location. `stdout` or `clipboard`.")
-	flag.Parse()
-
+/**
+ * Create note from template as String.
+ */
+func create(start string) string {
 	startDate, err := carbon.Parse(carbon.DateFormat, start, "Asia/Tokyo")
 	if err != nil {
 		log.Fatal(err)
@@ -43,11 +40,23 @@ func main() {
 		log.Fatal(err)
 	}
 
+	return tpl.String()
+}
+
+func main() {
+	var start, output string
+
+	flag.StringVar(&start, "start", carbon.Now().StartOfWeek().DateString(), "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
+	flag.StringVar(&output, "output", "stdout", "Specify the output location. `stdout` or `clipboard`.")
+	flag.Parse()
+
+	result := create(start)
+
 	switch output {
 	case "stdout":
-		fmt.Println(tpl.String())
+		fmt.Println(result)
 	case "clipboard":
-		clipboard.WriteAll(tpl.String())
+		clipboard.WriteAll(result)
 		fmt.Println("Sent to Clipboard!")
 	}
 }
