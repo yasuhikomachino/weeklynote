@@ -1,4 +1,4 @@
-module yasuhikomachino/weekly-note
+module yasuhikomachino/weeklynote
 
 go 1.16
 
