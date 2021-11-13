@@ -12,21 +12,19 @@ import (
 )
 
 func main() {
-	flagStart := flag.String("start", "", "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
-	flagOutput := flag.String("out", "stdout", "Specify the output location. Default is `stdout`.")
+	var start, output string
+
+	flag.StringVar(&start, "start", "", "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
+	flag.StringVar(&output, "output", "stdout", "Specify the output location. Default is `stdout`.")
 	flag.Parse()
 
-	var start *carbon.Carbon
+	if start == "" {
+		start = carbon.Now().StartOfWeek().DateString()
+	}
 
-	if *flagStart == "" {
-		start = carbon.Now().StartOfWeek()
-	} else {
-		_start, err := carbon.Parse(carbon.DateFormat, *flagStart, "Asia/Tokyo")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		start = _start
+	startDate, err := carbon.Parse(carbon.DateFormat, start, "Asia/Tokyo")
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	t, err := template.ParseFiles("./default.tmpl")
@@ -39,7 +37,7 @@ func main() {
 	var days []string
 
 	for i := 0; i < 7; i++ {
-		d := start.AddDays(i)
+		d := startDate.AddDays(i)
 		days = append(days, d.DateString()+"("+dayOfWeek[d.Weekday()]+")")
 	}
 
@@ -49,7 +47,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	switch *flagOutput {
+	switch output {
 	case "stdout":
 		fmt.Println(tpl.String())
 	case "clipboard":
