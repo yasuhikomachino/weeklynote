@@ -13,6 +13,7 @@ import (
 
 func main() {
 	flagStart := flag.String("start", "", "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
+	flagOutput := flag.String("out", "stdout", "Specify the output location. Default is `stdout`.")
 	flag.Parse()
 
 	var start *carbon.Carbon
@@ -48,9 +49,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// stdout
-	fmt.Println(tpl.String())
-
-	// clipboard
-	clipboard.WriteAll(tpl.String())
+	switch *flagOutput {
+	case "stdout":
+		fmt.Println(tpl.String())
+	case "clipboard":
+		clipboard.WriteAll(tpl.String())
+		fmt.Println("Sent to Clipboard!")
+	}
 }
