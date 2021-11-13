@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"text/template"
+	"time"
 
 	"github.com/atotto/clipboard"
 	"github.com/uniplaces/carbon"
@@ -15,7 +16,7 @@ import (
  * Create note from template as String.
  */
 func create(start string) string {
-	startDate, err := carbon.Parse(carbon.DateFormat, start, "Asia/Tokyo")
+	startDate, err := carbon.Parse(carbon.DateFormat, start, time.Now().Location().String())
 	if err != nil {
 		log.Fatal(err)
 	}
