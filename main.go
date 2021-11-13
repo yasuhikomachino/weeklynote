@@ -14,13 +14,9 @@ import (
 func main() {
 	var start, output string
 
-	flag.StringVar(&start, "start", "", "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
-	flag.StringVar(&output, "output", "stdout", "Specify the output location. Default is `stdout`.")
+	flag.StringVar(&start, "start", carbon.Now().StartOfWeek().DateString(), "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
+	flag.StringVar(&output, "output", "stdout", "Specify the output location. `stdout` or `clipboard`.")
 	flag.Parse()
-
-	if start == "" {
-		start = carbon.Now().StartOfWeek().DateString()
-	}
 
 	startDate, err := carbon.Parse(carbon.DateFormat, start, "Asia/Tokyo")
 	if err != nil {
