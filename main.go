@@ -2,14 +2,14 @@ package main
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
-	"log"
-	"text/template"
-	"time"
-
 	"github.com/atotto/clipboard"
 	"github.com/uniplaces/carbon"
+	"github.com/urfave/cli/v2"
+	"log"
+	"os"
+	"text/template"
+	"time"
 )
 
 /**
@@ -74,13 +74,62 @@ func output(content string, location string) {
 }
 
 func main() {
-	var start, location, language, result string
+	var language string
+	var start string
+	var location string
+	var result string
 
-	flag.StringVar(&start, "start", carbon.Now().StartOfWeek().DateString(), "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.")
-	flag.StringVar(&location, "location", "stdout", "Specify the output location. \"stdout\" or \"clipboard\".")
-	flag.StringVar(&language, "language", "en", "Specify the display language. \"en\" or \"ja\".")
-	flag.Parse()
+	startOfWeek := carbon.Now().StartOfWeek().DateString()
+	timeLocation := time.Now().Location().String()
 
-	result = create(start, time.Now().Location().String(), language)
-	output(result, location)
+	cli.VersionFlag = &cli.BoolFlag{
+		Name:    "version",
+		Aliases: []string{"V"},
+		Usage:   "print only the version",
+	}
+
+	app := &cli.App{
+		Name:    "weeklynote",
+		Version: "v1.0.0",
+
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "start",
+				Aliases:     []string{"s"},
+				Value:       startOfWeek,
+				DefaultText: startOfWeek,
+				Usage:       "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.",
+				Destination: &start,
+			},
+
+			&cli.StringFlag{
+				Name:        "language",
+				Aliases:     []string{"lang"},
+				Value:       "en",
+				DefaultText: "en",
+				Usage:       "Specify the display language. \"en\" or \"ja\".",
+				Destination: &language,
+			},
+
+			&cli.StringFlag{
+				Name:        "location",
+				Aliases:     []string{"loc"},
+				Value:       "stdout",
+				DefaultText: "stdout",
+				Usage:       "Specify the output location. \"stdout\" or \"clipboard\"",
+				Destination: &location,
+			},
+		},
+
+		Action: func(c *cli.Context) error {
+			result = create(start, timeLocation, language)
+			output(result, location)
+			return nil
+		},
+	}
+
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
