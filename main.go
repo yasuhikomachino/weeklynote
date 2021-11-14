@@ -90,7 +90,7 @@ func main() {
 
 	app := &cli.App{
 		Name:    "weeklynote",
-		Version: "v1.0.0",
+		Version: "v1.0.1",
 
 		Flags: []cli.Flag{
 			&cli.StringFlag{
