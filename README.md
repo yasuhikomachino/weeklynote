@@ -1,54 +1,68 @@
-# weeklynote
+weeklynote - Generate a template for a weekly task list
 
-Generate a template for a weekly task list.
-
-## Install
+## INSTALLATION
 
 ```
-$ git get git@github.com:yasuhikomachino/weeklynote.git
+$ git install git@github.com:yasuhikomachino/weeklynote.git@latest
 ```
 
 or download binary from [here](https://github.com/yasuhikomachino/weeklynote/releases).
 
-## Usage
+## USAGE
 
 ```
-$ weeklynote
-```
-
-output:
-
-```
+$ go run main.go
 # 2021-11-15(MON) - 2021-11-21(SUN) 
 
 ## 2021-11-15(MON)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-16(TUE)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-17(WED)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-18(THU)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-19(FRI)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-20(SAT)
+
+- [ ] task
+- [ ] task
 - [ ] task
 
 ## 2021-11-21(SUN)
+
+- [ ] task
+- [ ] task
 - [ ] task
 ```
 
-## Options
+## OPTIONS
 
 ```
---start value, -s value         Specify the start date(YY-MM-DD). Default is the first day of the week of the current day. (default: 2021-11-15)
---language value, --lang value  Specify the display language. "en" or "ja". (default: en)
---location value, --loc value   Specify the output location. "stdout" or "clipboard" (default: stdout)
---help, -h                      show help (default: false)
---version, -V                   print only the version (default: false)
+--start value     Specify the start date(YY-MM-DD). Default is the first day of the week of the current day. (default: 2021-11-15)
+--language value  Specify the display language. "en" or "ja". (default: en)
+--location value  Specify the output location. "stdout" or "clipboard" (default: stdout)
+--help, -h        show help (default: false)
+--version, -v     print only the version (default: false)
 ```
