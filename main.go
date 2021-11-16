@@ -84,18 +84,21 @@ func main() {
 
 	cli.VersionFlag = &cli.BoolFlag{
 		Name:    "version",
-		Aliases: []string{"V"},
+		Aliases: []string{"v"},
 		Usage:   "print only the version",
 	}
 
 	app := &cli.App{
 		Name:    "weeklynote",
 		Version: "v1.0.1",
+		Usage: "generate a template for a weekly task list",
+		UsageText: "weeklynote [options]",
+		HideHelp: false,
+		HideVersion: false,
 
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "start",
-				Aliases:     []string{"s"},
 				Value:       startOfWeek,
 				DefaultText: startOfWeek,
 				Usage:       "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.",
@@ -104,7 +107,6 @@ func main() {
 
 			&cli.StringFlag{
 				Name:        "language",
-				Aliases:     []string{"lang"},
 				Value:       "en",
 				DefaultText: "en",
 				Usage:       "Specify the display language. \"en\" or \"ja\".",
@@ -113,7 +115,6 @@ func main() {
 
 			&cli.StringFlag{
 				Name:        "location",
-				Aliases:     []string{"loc"},
 				Value:       "stdout",
 				DefaultText: "stdout",
 				Usage:       "Specify the output location. \"stdout\" or \"clipboard\"",
