@@ -12,9 +12,6 @@ import (
 	"time"
 )
 
-/**
- * Get day of week string slice
- */
 func dayOfWeek(language string) []string {
 	var s []string
 
@@ -28,10 +25,7 @@ func dayOfWeek(language string) []string {
 	return s
 }
 
-/**
- * Create note from template as String.
- */
-func create(start string, location string, language string) string {
+func generate(start string, location string, language string) string {
 	startDate, err := carbon.Parse(carbon.DateFormat, start, location)
 	if err != nil {
 		log.Fatal(err)
@@ -60,9 +54,6 @@ func create(start string, location string, language string) string {
 	return tpl.String()
 }
 
-/**
- * Output note to the location
- */
 func output(content string, location string) {
 	switch location {
 	case "stdout":
@@ -123,7 +114,7 @@ func main() {
 		},
 
 		Action: func(c *cli.Context) error {
-			result = create(start, timeLocation, language)
+			result = generate(start, timeLocation, language)
 			output(result, location)
 			return nil
 		},
