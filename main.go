@@ -92,7 +92,7 @@ func main() {
 				Name:        "start",
 				Value:       startOfWeek,
 				DefaultText: startOfWeek,
-				Usage:       "Specify the start date(YY-MM-DD). Default is the first day of the week of the current day.",
+				Usage:       "start date(YY-MM-DD). Default is the first day of the week of the current day.",
 				Destination: &start,
 			},
 
@@ -100,7 +100,7 @@ func main() {
 				Name:        "language",
 				Value:       "en",
 				DefaultText: "en",
-				Usage:       "Specify the display language. \"en\" or \"ja\".",
+				Usage:       "display language. \"en\" or \"ja\".",
 				Destination: &language,
 			},
 
@@ -108,7 +108,7 @@ func main() {
 				Name:        "location",
 				Value:       "stdout",
 				DefaultText: "stdout",
-				Usage:       "Specify the output location. \"stdout\" or \"clipboard\"",
+				Usage:       "output location. \"stdout\" or \"clipboard\"",
 				Destination: &location,
 			},
 		},
