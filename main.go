@@ -86,7 +86,7 @@ func main() {
 
 	app := &cli.App{
 		Name:        "weeklynote",
-		Version:     "v1.0.5",
+		Version:     "v1.0.6",
 		Usage:       "generate a template for a weekly task list",
 		UsageText:   "weeklynote [options]",
 		HideHelp:    false,
