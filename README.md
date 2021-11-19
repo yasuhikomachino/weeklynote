@@ -3,7 +3,7 @@ weeklynote - Generate a template for a weekly task list
 ## INSTALLATION
 
 ```
-$ go install git@github.com:yasuhikomachino/weeklynote.git@latest
+$ go install github.com/yasuhikomachino/weeklynote@latest
 ```
 
 or download binary from [here](https://github.com/yasuhikomachino/weeklynote/releases).
