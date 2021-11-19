@@ -2,15 +2,20 @@ package main
 
 import (
 	"bytes"
+	"embed"
 	"fmt"
-	"github.com/atotto/clipboard"
-	"github.com/uniplaces/carbon"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"text/template"
 	"time"
+
+	"github.com/atotto/clipboard"
+	"github.com/uniplaces/carbon"
+	"github.com/urfave/cli/v2"
 )
+
+//go:embed templates
+var f embed.FS
 
 func dayOfWeek(language string) []string {
 	var s []string
@@ -31,7 +36,7 @@ func generate(start string, location string, language string) string {
 		log.Fatal(err)
 	}
 
-	t, err := template.ParseFiles("./default.tmpl")
+	t, err := template.ParseFS(f, "templates/default.tmpl")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,11 +85,11 @@ func main() {
 	}
 
 	app := &cli.App{
-		Name:    "weeklynote",
-		Version: "v1.0.5",
-		Usage: "generate a template for a weekly task list",
-		UsageText: "weeklynote [options]",
-		HideHelp: false,
+		Name:        "weeklynote",
+		Version:     "v1.0.5",
+		Usage:       "generate a template for a weekly task list",
+		UsageText:   "weeklynote [options]",
+		HideHelp:    false,
 		HideVersion: false,
 
 		Flags: []cli.Flag{
