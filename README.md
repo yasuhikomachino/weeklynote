@@ -1,6 +1,10 @@
 weeklynote - Generate a template for a weekly task list
 
-## INSTALLATION
+## Requirements
+
+- Go >= 1.16
+ 
+## Installation
 
 ```
 $ go install github.com/yasuhikomachino/weeklynote@latest
@@ -8,7 +12,7 @@ $ go install github.com/yasuhikomachino/weeklynote@latest
 
 or download binary from [here](https://github.com/yasuhikomachino/weeklynote/releases).
 
-## USAGE
+## Usage
 
 ```
 $ weeklynote
@@ -59,7 +63,7 @@ $ weeklynote
 - [ ] task
 ```
 
-## OPTIONS
+## Options
 
 ```
 --start value     start date(YY-MM-DD). Default is the first day of the week of the current day. (default: 2021-11-15)
